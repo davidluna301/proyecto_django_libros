@@ -1,0 +1,53 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Libros{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <p class="text-muted mb-0" style="font-size:0.8rem;">CATÁLOGO</p>
+        <h1 class="page-title mb-0">Libros</h1>
+    </div>
+    <a href="{% url 'crear_libro' %}" class="btn btn-dark btn-sm px-3">+ Nuevo libro</a>
+</div>
+
+{% if libros %}
+<div class="card">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Género</th>
+                    <th>Publicación</th>
+                    <th>ISBN</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for libro in libros %}
+                <tr>
+                    <td class="fw-500">{{ libro.titulo }}</td>
+                    <td class="text-muted">{{ libro.autor }}</td>
+                    <td><span class="badge-genre">{{ libro.genero }}</span></td>
+                    <td class="text-muted">{{ libro.fecha_publicacion }}</td>
+                    <td><code style="font-size:0.8rem;color:#6c757d;">{{ libro.isbn }}</code></td>
+                    <td class="text-end">
+                        <a href="{% url 'editar_libro' libro.pk %}" class="btn btn-xs btn-outline-primary me-1">Editar</a>
+                        <a href="{% url 'eliminar_libro' libro.pk %}" class="btn btn-xs btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<p class="text-muted mt-2" style="font-size:0.8rem;">{{ libros|length }} libro{{ libros|length|pluralize:"s" }} registrado{{ libros|length|pluralize:"s" }}</p>
+{% else %}
+<div class="card p-5 text-center">
+    <p class="text-muted mb-3">Aún no hay libros registrados.</p>
+    <a href="{% url 'crear_libro' %}" class="btn btn-dark btn-sm mx-auto" style="width:fit-content;">Agregar el primero</a>
+</div>
+{% endif %}
+{% endblock %}
