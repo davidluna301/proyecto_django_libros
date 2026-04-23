@@ -4,24 +4,49 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def get_list_env(name: str) -> list[str]:
+    value = os.getenv(name, '')
+    return [item.strip() for item in value.split(',') if item.strip()]
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'djangokey-1234567890'
+SECRET_KEY = os.getenv('SECRET_KEY', 'djangokey-1234567890')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-default_debug = 'False' if os.getenv('VERCEL') == '1' else 'True'
+is_managed_platform = os.getenv('VERCEL') == '1' or bool(os.getenv('RENDER'))
+default_debug = 'False' if is_managed_platform else 'True'
 DEBUG = os.getenv('DEBUG', default_debug).lower() == 'true'
 
-allowed_hosts_env = os.getenv('ALLOWED_HOSTS', '')
-ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_env.split(',') if host.strip()]
+ALLOWED_HOSTS = get_list_env('ALLOWED_HOSTS')
 
 if not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app']
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', '.onrender.com']
 
-csrf_trusted_origins_env = os.getenv('CSRF_TRUSTED_ORIGINS', '')
-CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_trusted_origins_env.split(',') if origin.strip()]
+railway_public_domain = os.getenv('RAILWAY_PUBLIC_DOMAIN', '').strip()
+render_external_hostname = os.getenv('RENDER_EXTERNAL_HOSTNAME', '').strip()
+
+if railway_public_domain:
+    ALLOWED_HOSTS.append(railway_public_domain)
+
+if render_external_hostname:
+    ALLOWED_HOSTS.append(render_external_hostname)
+
+ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
+
+CSRF_TRUSTED_ORIGINS = get_list_env('CSRF_TRUSTED_ORIGINS')
 
 if not CSRF_TRUSTED_ORIGINS:
-    CSRF_TRUSTED_ORIGINS = ['https://proyecto-django-libros-eta.vercel.app/']
+    CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://*.onrender.com']
+
+if railway_public_domain:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{railway_public_domain}')
+
+if render_external_hostname:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{render_external_hostname}')
+
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(CSRF_TRUSTED_ORIGINS))
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 INSTALLED_APPS = [
