@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Libros{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .navbar {
+            border-bottom: 1px solid #e9ecef;
+            background-color: #fff !important;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            color: #212529 !important;
+        }
+        .nav-link {
+            color: #6c757d !important;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #212529 !important;
+        }
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #212529;
+        }
+        .card {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            box-shadow: none;
+        }
+        .table {
+            font-size: 0.9rem;
+        }
+        .table thead th {
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6c757d;
+            border-bottom: 2px solid #e9ecef;
+            background: transparent;
+        }
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .table td {
+            vertical-align: middle;
+            border-color: #f1f3f4;
+            color: #343a40;
+        }
+        .btn-xs {
+            padding: 0.2rem 0.6rem;
+            font-size: 0.78rem;
+            border-radius: 6px;
+        }
+        .btn-outline-primary { border-color: #dee2e6; color: #495057; }
+        .btn-outline-primary:hover { background-color: #212529; border-color: #212529; color: #fff; }
+        .badge-genre {
+            background-color: #f1f3f4;
+            color: #495057;
+            font-size: 0.75rem;
+            padding: 0.3em 0.7em;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .form-label { font-size: 0.85rem; font-weight: 600; color: #495057; }
+        .form-control, .form-select {
+            border-color: #e9ecef;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #adb5bd;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+        }
+        footer { border-top: 1px solid #e9ecef; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white py-3">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">&#x1F4DA; Admin Libros</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{% url 'lista_autores' %}">Autores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{% url 'lista_libros' %}">Libros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="/admin/">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4" style="max-width:960px;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="text-center py-4 mt-2">
+        <small class="text-muted">Admin Libros &copy; 2025</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

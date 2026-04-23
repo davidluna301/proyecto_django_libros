@@ -1,0 +1,64 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Inicio — Admin Libros{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+
+    <p class="text-muted mb-1" style="font-size:0.78rem; letter-spacing:0.1em;">BIENVENIDO</p>
+    <h1 style="font-size:2rem; font-weight:700; letter-spacing:-0.5px;" class="mb-1">Admin Libros</h1>
+    <p class="text-muted mb-5" style="font-size:0.95rem;">¿Qué deseas hacer hoy?</p>
+
+    <div class="row g-4 justify-content-center w-100" style="max-width:680px;">
+
+        <!-- Gestión -->
+        <div class="col-sm-6">
+            <a href="{% url 'lista_libros' %}" class="text-decoration-none">
+                <div class="card h-100 p-4 text-center home-card">
+                    <div class="mb-3" style="font-size:2.2rem;">📚</div>
+                    <h5 class="fw-600 mb-1" style="font-size:1rem;">Gestión</h5>
+                    <p class="text-muted mb-0" style="font-size:0.85rem;">
+                        Administra autores y libros desde una interfaz simple y rápida.
+                    </p>
+                    <div class="mt-3 d-flex gap-2 justify-content-center">
+                        <span class="badge-genre">Autores</span>
+                        <span class="badge-genre">Libros</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Administración Django -->
+        <div class="col-sm-6">
+            <a href="/admin/" class="text-decoration-none">
+                <div class="card h-100 p-4 text-center home-card">
+                    <div class="mb-3" style="font-size:2.2rem;">⚙️</div>
+                    <h5 class="fw-600 mb-1" style="font-size:1rem;">Administración</h5>
+                    <p class="text-muted mb-0" style="font-size:0.85rem;">
+                        Panel completo de Django para gestión avanzada de la base de datos.
+                    </p>
+                    <div class="mt-3 d-flex gap-2 justify-content-center">
+                        <span class="badge-genre">Django Admin</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .home-card {
+        border: 1px solid #e9ecef;
+        border-radius: 14px;
+        transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+        color: #212529;
+    }
+    .home-card:hover {
+        border-color: #adb5bd;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+        transform: translateY(-2px);
+    }
+    .fw-600 { font-weight: 600; }
+</style>
+{% endblock %}
