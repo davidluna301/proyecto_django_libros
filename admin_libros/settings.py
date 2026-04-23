@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-admin-libros-secret-key-change-in-production'
+SECRET_KEY = 'djangokey-1234567890'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 default_debug = 'False' if os.getenv('VERCEL') == '1' else 'True'
@@ -21,7 +21,7 @@ csrf_trusted_origins_env = os.getenv('CSRF_TRUSTED_ORIGINS', '')
 CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_trusted_origins_env.split(',') if origin.strip()]
 
 if not CSRF_TRUSTED_ORIGINS:
-    CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
+    CSRF_TRUSTED_ORIGINS = ['https://proyecto-django-libros-eta.vercel.app/']
 
 # Application definition
 INSTALLED_APPS = [
